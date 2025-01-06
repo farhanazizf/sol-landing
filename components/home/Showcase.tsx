@@ -49,7 +49,7 @@ export const AppShowcase = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Left Column */}
             <div
-              className="flex flex-col px-4 text-center lg:text-left"
+              className="flex flex-col px-4 text-center lg:text-left justify-between"
               style={{
                 backgroundImage: "url(/images/background/sol-bg-join-blue.png)",
                 backgroundSize: "cover",
