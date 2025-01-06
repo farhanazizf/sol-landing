@@ -1,6 +1,7 @@
 "use client";
 
 import { Logo } from "./Logo";
+import { MobileMenu } from "./MobileMenu";
 import { NavLinks } from "./NavLinks";
 
 export const Navbar = () => {
@@ -9,6 +10,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Logo />
         <NavLinks />
+        <MobileMenu />
       </div>
     </nav>
   );

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { NavigationLinks } from "./MobileMenu";
 
 const links = [
   { href: "/", label: "Home" },
@@ -22,6 +23,7 @@ export const NavLinks = () => {
           {link.label}
         </Link>
       ))}
+      <NavigationLinks className="flex items-center gap-8" />
       <Button className="bg-[#4052B5] hover:bg-[#3445A3] text-sm font-medium px-6">
         Aktifasi
       </Button>

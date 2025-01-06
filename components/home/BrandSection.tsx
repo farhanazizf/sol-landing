@@ -22,9 +22,6 @@ const brands = [
   { src: "/images/brand/sol-brand-goldenfarm.png", alt: "Golden Farm" },
   { src: "/images/brand/sol-brand-tatura.png", alt: "Tatura" },
   { src: "/images/brand/sol-brand-airborne.png", alt: "Airborne" },
-  // { src: "/images/brand/shine-road.png", alt: "Shine Road" },
-  // { src: "/images/brand/galbani.png", alt: "Galbani" },
-  // { src: "/images/brand/lotus.png", alt: "Lotus" },
 ];
 
 export const BrandSlider = () => {
