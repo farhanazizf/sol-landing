@@ -7,23 +7,23 @@ const features = [
   {
     icon: <Book className="w-8 h-8 text-blue-600" />,
     title: "Katalog Online",
-    description: "Temukan seluruh produk kami dengan lebih mudah."
+    description: "Temukan seluruh produk kami dengan lebih mudah.",
   },
   {
     icon: <Target className="w-8 h-8 text-blue-600" />,
     title: "Cek Status Pesanan",
-    description: "Dapatkan informasi status pesanan langsung di platform kami."
+    description: "Dapatkan informasi status pesanan langsung di platform kami.",
   },
   {
     icon: <FileText className="w-8 h-8 text-blue-600" />,
     title: "Invoice Digital",
-    description: "Download invoice langsung dari Sukanda Onelink."
+    description: "Download invoice langsung dari Sukanda Onelink.",
   },
   {
     icon: <Clock className="w-8 h-8 text-blue-600" />,
     title: "Histori Pesanan",
-    description: "Akses dan pesan ulang dari histori pemesanan Anda."
-  }
+    description: "Akses dan pesan ulang dari histori pemesanan Anda.",
+  },
 ];
 
 interface FeatureCardProps {
@@ -47,19 +47,20 @@ export const FeaturesSection = () => {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <div className="relative w-[200px] h-[50px] mx-auto mb-6">
+          <div className="relative w-[120px] h-[100px] mx-auto mb-6">
             <Image
-              src="/images/logo.png"
+              src="/images/logo/sol-logo-big.png"
               alt="Sukanda Onelink"
               fill
               className="object-contain"
             />
           </div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Platform B2B Online untuk memudahkan Anda mengakses semua informasi produk dan pemesanan produk dimanapun, kapanpun.
+            Platform B2B Online untuk memudahkan Anda mengakses semua informasi
+            produk dan pemesanan produk dimanapun, kapanpun.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <FeatureCard key={index} {...feature} />
@@ -68,4 +69,4 @@ export const FeaturesSection = () => {
       </div>
     </section>
   );
-}
+};

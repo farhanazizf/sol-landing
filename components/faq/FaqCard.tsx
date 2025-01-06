@@ -20,7 +20,7 @@ export const FaqCard: FC<FaqCardProps> = ({
   onButtonClick,
 }) => {
   return (
-    <Card className="h-full bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="flex flex-col h-full bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 py-3 px-4">
       <CardHeader className="flex items-center justify-center pb-2">
         <div className="w-16 h-16 flex items-center justify-center rounded-full bg-purple-100">
           {icon}
@@ -29,6 +29,9 @@ export const FaqCard: FC<FaqCardProps> = ({
       <CardContent className="text-center">
         <h3 className="text-lg font-semibold mb-2 text-gray-800">{title}</h3>
         <p className="text-sm text-gray-600 mb-4">{description}</p>
+      </CardContent>
+
+      <div className="flex h-full items-end justify-center">
         <Button
           onClick={onButtonClick}
           variant="outline"
@@ -36,7 +39,7 @@ export const FaqCard: FC<FaqCardProps> = ({
         >
           {buttonText}
         </Button>
-      </CardContent>
+      </div>
     </Card>
   );
-}
+};
