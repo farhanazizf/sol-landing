@@ -3,6 +3,7 @@ import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { FaqSection } from "@/components/faq/FaqSection";
 import { CtaSection } from "@/components/home/CtaSection";
 import { BrandSlider } from "@/components/home/BrandSection";
+import { AppShowcase } from "@/components/home/Showcase";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <BrandSlider />
       <FeaturesSection />
       <FaqSection />
-      <CtaSection />
+      {/* <CtaSection /> */}
+      <AppShowcase />
     </main>
   );
 }
