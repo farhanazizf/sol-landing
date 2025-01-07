@@ -12,7 +12,6 @@ export default function Home() {
       <BrandSlider />
       <FeaturesSection />
       <FaqSection />
-      {/* <CtaSection /> */}
       <AppShowcase />
     </main>
   );
