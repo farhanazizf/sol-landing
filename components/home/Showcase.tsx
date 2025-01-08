@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ResponsiveImage } from "../ui/responsive-image";
-// import { AppStoreButtons } from "./AppStoreButtons";
 
 export const AppStoreButtons = () => {
   return (
