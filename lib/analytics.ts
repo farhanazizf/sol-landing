@@ -6,15 +6,6 @@ declare global {
     dataLayer: any[];
   }
 }
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDSuXDJbc1ihUWNswuddj_XvqGdtJNqV60",
-//   authDomain: "trial-data-collecting.firebaseapp.com",
-//   projectId: "trial-data-collecting",
-//   storageBucket: "trial-data-collecting.firebasestorage.app",
-//   messagingSenderId: "204035292718",
-//   appId: "1:204035292718:web:2a642eb19e489198a9a9bf",
-//   measurementId: "G-L23SMBHFS0",
-// };
 
 export const GA_TRACKING_ID = "G-L23SMBHFS0";
 
