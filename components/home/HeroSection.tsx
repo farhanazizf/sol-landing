@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { trackButtonClick } from "@/lib/analytics";
 export const HeroSection = () => {
   return (
     <section
@@ -29,7 +30,10 @@ export const HeroSection = () => {
               kapanpun dengan Sukanda Onelink.
             </p>
             <div>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6">
+              <Button
+                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6"
+                onClick={() => trackButtonClick("activation", "hero_section")}
+              >
                 Aktifasi
               </Button>
             </div>
