@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
+import { useShopAnalytics } from "@/hooks/useShopAnalytics";
+import { useCart } from "@/hooks/useCart";
 
 interface ProductCardProps {
   product: {
@@ -16,9 +18,23 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
+  const { trackButtonClick, startAddToCartTimer } = useShopAnalytics();
+  const { addToCart } = useCart("test-user"); // Replace with actual user ID
+
+  const handleAddToCart = () => {
+    startAddToCartTimer();
+    addToCart(product, 1);
+    trackButtonClick("add_to_cart", { product_id: product.id });
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <Link href={`/products/${product.id}`}>
+      <Link
+        href={`/shop/products/${product.id}`}
+        onClick={() =>
+          trackButtonClick("view_product", { product_id: product.id })
+        }
+      >
         <div className="relative aspect-square">
           <Image
             src={product.image}
@@ -36,7 +52,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <span className="text-lg font-bold">
             {formatCurrency(product.price)}
           </span>
-          <Button variant="outline">Add to Cart</Button>
+          <Button variant="outline" onClick={handleAddToCart}>
+            Add to Cart
+          </Button>
         </div>
       </div>
     </div>
