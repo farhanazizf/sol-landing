@@ -30,7 +30,7 @@ export const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => {
           {link.label}
         </Link>
       ))}
-      <NavigationLinks className="flex items-center gap-8" />
+      {/* <NavigationLinks className="flex items-center gap-8" /> */}
       <Button
         className="bg-[#4052B5] hover:bg-[#3445A3] text-sm font-medium px-6"
         onClick={() => handleClick("Navbar Aktifasi")}
