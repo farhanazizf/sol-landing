@@ -7,6 +7,7 @@ import {
   Analytics,
   logEvent,
 } from "firebase/analytics";
+import { getDatabase, ref, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -23,6 +24,8 @@ const app =
   !getApps().length && firebaseConfig.apiKey
     ? initializeApp(firebaseConfig)
     : getApps()[0];
+
+const database = app ? getDatabase(app) : null;
 
 // Initialize Analytics
 const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
@@ -43,14 +46,11 @@ export const logFirebaseEvent = (
   }
 };
 
-// if (typeof window !== "undefined" && app) {
-//   isSupported()
-//     .then((yes) => {
-//       if (yes && firebaseConfig.measurementId) {
-//         analytics = getAnalytics(app);
-//       }
-//     })
-//     .catch(console.error);
-// }
+export const saveToDatabase = (path: string, data: any) => {
+  if (database) {
+    const dbRef = ref(database, path);
+    return set(dbRef, data);
+  }
+};
 
-export { app, analytics };
+export { app, analytics, database };
