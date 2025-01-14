@@ -19,11 +19,11 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { trackButtonClick, startAddToCartTimer } = useShopAnalytics();
-  const { addToCart } = useCart("test-user"); // Replace with actual user ID
+  const { addToCart } = useCart(); // Replace with actual user ID
 
   const handleAddToCart = () => {
     startAddToCartTimer();
-    addToCart(product, 1);
+    addToCart(product);
     trackButtonClick("add_to_cart", { product_id: product.id });
   };
 

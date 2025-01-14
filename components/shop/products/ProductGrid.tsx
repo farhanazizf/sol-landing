@@ -20,6 +20,20 @@ export const ProductGrid = ({ filters }: ProductGridProps) => {
       image: "/images/products/product-1.jpg",
       brand: "Brand 1",
     },
+    {
+      id: "2",
+      name: "Product 2",
+      price: 200000,
+      image: "/images/products/product-2.jpg",
+      brand: "Brand 2",
+    },
+    {
+      id: "3",
+      name: "Product 3",
+      price: 300000,
+      image: "/images/products/product-3.jpg",
+      brand: "Brand 3",
+    },
     // Add more mock products
   ];
 

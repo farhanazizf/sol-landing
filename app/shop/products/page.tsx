@@ -14,8 +14,8 @@ export default function ProductsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-8">Our Products</h1>
-      
+      <h1 className="text-2xl font-bold mb-8">Our Productsx</h1>
+
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Filters Sidebar */}
         <div className="w-full lg:w-64 flex-shrink-0">

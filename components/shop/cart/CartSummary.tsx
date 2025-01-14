@@ -2,16 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
+import { useCart } from "@/hooks/useCart";
 import Link from "next/link";
 
 export const CartSummary = () => {
-  // Mock cart data - replace with actual cart state
+  const { cart } = useCart();
+
   const summary = {
-    subtotal: 100000,
-    shipping: 15000,
-    tax: 11000,
-    total: 126000,
+    subtotal: cart.reduce((total, item) => total + item.total_price, 0),
+    shipping: cart.length > 0 ? 15000 : 0,
+    tax: cart.reduce((total, item) => total + item.total_price * 0.11, 0),
   };
+
+  const total = summary.subtotal + summary.shipping + summary.tax;
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm space-y-4">
@@ -27,7 +30,7 @@ export const CartSummary = () => {
           <span>{formatCurrency(summary.shipping)}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-600">Tax</span>
+          <span className="text-gray-600">Tax (11%)</span>
           <span>{formatCurrency(summary.tax)}</span>
         </div>
       </div>
@@ -35,12 +38,14 @@ export const CartSummary = () => {
       <div className="border-t pt-4">
         <div className="flex justify-between font-bold">
           <span>Total</span>
-          <span>{formatCurrency(summary.total)}</span>
+          <span>{formatCurrency(total)}</span>
         </div>
       </div>
 
-      <Link href="/checkout">
-        <Button className="w-full">Proceed to Checkout</Button>
+      <Link href="/shop/checkout">
+        <Button className="w-full" disabled={cart.length === 0}>
+          Proceed to Checkout
+        </Button>
       </Link>
     </div>
   );

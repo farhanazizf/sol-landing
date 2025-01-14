@@ -1,10 +1,30 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ProductGrid } from "@/components/shop/products/ProductGrid";
+import { RegistrationPopup } from "@/components/shop/registration/RegistrationPopup";
 import Link from "next/link";
 
 export default function ShopPage() {
+  const [showRegistration, setShowRegistration] = useState(true);
+
+  useEffect(() => {
+    // Check if user has already registered
+    const userId = localStorage.getItem("shopUserId");
+    if (userId) {
+      setShowRegistration(false);
+    }
+  }, []);
+
+  const handleRegistrationComplete = () => {
+    setShowRegistration(false);
+  };
+
+  if (showRegistration) {
+    return <RegistrationPopup onComplete={handleRegistrationComplete} />;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Hero Section */}
@@ -16,7 +36,10 @@ export default function ShopPage() {
       >
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative h-full flex flex-col justify-center items-center text-center text-white p-6">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1
+            className="text-4xl md:text-5xl font-bold mb-4"
+            onDoubleClick={() => setShowRegistration(true)}
+          >
             Discover Our Products
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-2xl">
