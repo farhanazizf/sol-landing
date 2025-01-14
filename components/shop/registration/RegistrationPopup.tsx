@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { database } from "@/lib/firebase";
 import { ref, set } from "firebase/database";
+import { toast } from "sonner";
 
 interface RegistrationData {
   name: string;
@@ -54,9 +55,10 @@ export function RegistrationPopup({ onComplete }: RegistrationPopupProps) {
       // Store user ID in localStorage
       localStorage.setItem("shopUserId", userId);
 
+      toast.success("Registration successful!");
       onComplete();
     } catch (error) {
-      console.error("Error saving registration:", error);
+      toast.error("Failed to complete registration. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

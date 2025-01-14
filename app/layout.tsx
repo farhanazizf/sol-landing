@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Analytics } from "@/components/analytics/Analytics";
 import { Providers } from "@/components/providers/Providers";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
           <main className="min-h-screen pt-16">{children}</main>
           <Footer />
           <Analytics />
+          <Toaster position="bottom-right" richColors />
         </Providers>
       </body>
     </html>
