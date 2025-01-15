@@ -1,25 +1,28 @@
 "use client";
 
 import { ProductCard } from "./ProductCard";
+import { mockProducts } from "@/lib/mock-data";
 
-export const RelatedProducts = () => {
-  // Mock related products - replace with actual related products
-  const relatedProducts = [
-    {
-      id: "2",
-      name: "Related Product 1",
-      price: 150000,
-      image: "/images/products/product-2.jpg",
-      brand: "Brand 2",
-    },
-    {
-      id: "3",
-      name: "Related Product 2",
-      price: 200000,
-      image: "/images/products/product-3.jpg",
-      brand: "Brand 3",
-    },
-  ];
+interface RelatedProductsProps {
+  currentProductId: string;
+  category: string;
+}
+
+export const RelatedProducts = ({
+  currentProductId,
+  category,
+}: RelatedProductsProps) => {
+  // Filter related products from the same category, excluding current product
+  const relatedProducts = mockProducts
+    .filter(
+      (product) =>
+        product.category === category && product.id !== currentProductId
+    )
+    .slice(0, 4); // Limit to 4 related products
+
+  if (relatedProducts.length === 0) {
+    return null;
+  }
 
   return (
     <div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { ProductCard } from "./ProductCard";
+import { mockProducts } from "@/lib/mock-data";
 
 interface ProductGridProps {
   filters: {
@@ -11,35 +12,23 @@ interface ProductGridProps {
 }
 
 export const ProductGrid = ({ filters }: ProductGridProps) => {
-  // Mock products data - replace with actual API call
-  const products = [
-    {
-      id: "1",
-      name: "Product 1",
-      price: 100000,
-      image: "/images/products/product-1.jpg",
-      brand: "Brand 1",
-    },
-    {
-      id: "2",
-      name: "Product 2",
-      price: 200000,
-      image: "/images/products/product-2.jpg",
-      brand: "Brand 2",
-    },
-    {
-      id: "3",
-      name: "Product 3",
-      price: 300000,
-      image: "/images/products/product-3.jpg",
-      brand: "Brand 3",
-    },
-    // Add more mock products
-  ];
+  // Filter products based on criteria
+  const filteredProducts = mockProducts.filter((product) => {
+    const matchesCategory =
+      filters.category === "all" ||
+      product.category.toLowerCase() === filters.category;
+    const matchesBrand =
+      filters.brand === "all" || product.brand.toLowerCase() === filters.brand;
+    const matchesPrice =
+      product.price >= filters.priceRange[0] &&
+      product.price <= filters.priceRange[1];
+
+    return matchesCategory && matchesBrand && matchesPrice;
+  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
