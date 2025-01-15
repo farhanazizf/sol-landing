@@ -17,6 +17,11 @@ const links = [
   { href: "/login", label: "Login" },
 ];
 
+const linkShop = [
+  { href: "/shop", label: "Shop" },
+  { href: "/shop/orders", label: "History Order" },
+];
+
 export const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => {
   const [showNav, setShowNav] = useState(true);
 
@@ -35,27 +40,27 @@ export const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => {
 
   return (
     <div className="hidden md:flex items-center gap-8">
-      {!showNav ? (
-        <Link
-          key={"/shop"}
-          href={"/shop"}
-          className="text-[#666] hover:text-[#444] transition-colors text-sm font-medium"
-          onClick={() => handleClick("Shop")}
-        >
-          {"Shop"}
-        </Link>
-      ) : (
-        links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="text-[#666] hover:text-[#444] transition-colors text-sm font-medium"
-            onClick={() => handleClick(link.label)}
-          >
-            {link.label}
-          </Link>
-        ))
-      )}
+      {!showNav
+        ? linkShop.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-[#666] hover:text-[#444] transition-colors text-sm font-medium"
+              onClick={() => handleClick(link.label)}
+            >
+              {link.label}
+            </Link>
+          ))
+        : links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-[#666] hover:text-[#444] transition-colors text-sm font-medium"
+              onClick={() => handleClick(link.label)}
+            >
+              {link.label}
+            </Link>
+          ))}
 
       <CartButton />
       <Button
