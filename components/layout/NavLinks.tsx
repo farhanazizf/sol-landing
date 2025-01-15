@@ -4,15 +4,21 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { NavigationLinks } from "./MobileMenu";
 import { trackNavigation } from "@/lib/analytics";
+import { CartButton } from "../shop/navigation/CartButton";
+import { useCart } from "@/hooks/useCart";
 
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "Tentang Kami" },
+  { href: "/shop", label: "Tentang Kami" },
   { href: "/contact", label: "Hubungi Kami" },
   { href: "/login", label: "Login" },
 ];
 
 export const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => {
+  const { cart } = useCart();
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   const handleClick = (label: string) => {
     trackNavigation(label);
     onLinkClick?.();
@@ -20,7 +26,28 @@ export const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => {
 
   return (
     <div className="hidden md:flex items-center gap-8">
-      {links.map((link) => (
+      {totalItems > 0 ? (
+        <Link
+          key={"/shop"}
+          href={"/shop"}
+          className="text-[#666] hover:text-[#444] transition-colors text-sm font-medium"
+          onClick={() => handleClick("Shop")}
+        >
+          Shop
+        </Link>
+      ) : (
+        links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="text-[#666] hover:text-[#444] transition-colors text-sm font-medium"
+            onClick={() => handleClick(link.label)}
+          >
+            {link.label}
+          </Link>
+        ))
+      )}
+      {/* {links.map((link) => (
         <Link
           key={link.href}
           href={link.href}
@@ -29,8 +56,9 @@ export const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => {
         >
           {link.label}
         </Link>
-      ))}
+      ))} */}
       {/* <NavigationLinks className="flex items-center gap-8" /> */}
+      <CartButton />
       <Button
         className="bg-[#4052B5] hover:bg-[#3445A3] text-sm font-medium px-6"
         onClick={() => handleClick("Navbar Aktifasi")}

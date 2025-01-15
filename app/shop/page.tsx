@@ -5,9 +5,19 @@ import { Button } from "@/components/ui/button";
 import { ProductGrid } from "@/components/shop/products/ProductGrid";
 import { RegistrationPopup } from "@/components/shop/registration/RegistrationPopup";
 import Link from "next/link";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 export default function ShopPage() {
+  const { trackEvent } = useAnalytics();
   const [showRegistration, setShowRegistration] = useState(true);
+
+  useEffect(() => {
+    // Interest Stage Tracking
+    trackEvent("shop_landing_view", {
+      section: "shop_home",
+      has_registered: !showRegistration,
+    });
+  }, [showRegistration, trackEvent]);
 
   useEffect(() => {
     // Check if user has already registered
