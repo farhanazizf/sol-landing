@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import { mockProducts } from "@/lib/mock-data";
 import { ProductDetails } from "@/components/shop/products/ProductDetails";
+import { ProductClientWrapper } from "@/components/shop/products/ProductClientWrapper";
 
-// This function is required for static site generation with dynamic routes
 export function generateStaticParams() {
   return mockProducts.map((product) => ({
     id: product.id,
@@ -30,5 +31,11 @@ export default function ProductDetailPage({
     );
   }
 
-  return <ProductDetails product={product} />;
+  return (
+    <Suspense fallback={null}>
+      <ProductClientWrapper product={product}>
+        <ProductDetails product={product} />
+      </ProductClientWrapper>
+    </Suspense>
+  );
 }
