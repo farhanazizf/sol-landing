@@ -33,6 +33,7 @@ export function RegistrationPopup({ onComplete }: RegistrationPopupProps) {
     store: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const username = formData.email.split("@")[0].replace(/./g, "");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +41,7 @@ export function RegistrationPopup({ onComplete }: RegistrationPopupProps) {
 
     try {
       // Generate a unique ID for the user
-      const userId = `fhi_${formData.email.split("@")[0] || "anonim"}`;
+      const userId = `fhi_${username || "anonim"}`;
 
       // Save to Firebase Realtime Database
       const userRef = ref(database!, `fhi/${userId}`);
