@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { database } from "@/lib/firebase";
-import { ref, onValue, set, get } from "firebase/database";
+import { ref, onValue, set } from "firebase/database";
 import { useShopAnalytics } from "./useShopAnalytics";
 import { toast } from "sonner";
 
@@ -37,12 +37,12 @@ export const useCart = () => {
     return () => unsubscribe();
   }, [userId]);
 
-  const addToCart = async (item: {
-    name: string;
-    brand: string;
-    price: number;
-  }) => {
+  const addToCart = async (
+    item: { name: string; brand: string; price: number },
+    quantity: number = 1
+  ) => {
     if (!database || !userId) return;
+
     try {
       const cartRef = ref(database, `fhi/${userId}/cart`);
       const existingItemIndex = cart.findIndex(
@@ -53,10 +53,9 @@ export const useCart = () => {
       let updatedCart: CartItem[];
 
       if (existingItemIndex >= 0) {
-        // Update existing item
         updatedCart = cart.map((cartItem, index) => {
           if (index === existingItemIndex) {
-            const newQuantity = cartItem.quantity + 1;
+            const newQuantity = cartItem.quantity + quantity;
             return {
               ...cartItem,
               quantity: newQuantity,
@@ -67,36 +66,19 @@ export const useCart = () => {
         });
         toast.success(`Updated quantity of ${item.name} in cart`);
       } else {
-        // Add new item
         const newItem: CartItem = {
           item_name: item.name,
           brand: item.brand,
           price: item.price,
-          quantity: 1,
-          total_price: item.price,
+          quantity: quantity,
+          total_price: item.price * quantity,
         };
         updatedCart = [...cart, newItem];
         toast.success(`Added ${item.name} to cart`);
       }
 
-      const totalCartPrice = updatedCart.reduce(
-        (total, item) => total + item.total_price,
-        0
-      );
-      const reff = ref(database, `fhi/${userId}`);
-
-      // await set(reff, { grand_total: totalCartPrice });
       await set(cartRef, updatedCart);
-
-      const snapshot = await get(reff);
-
-      if (snapshot.exists()) {
-        console.log("here");
-        let updated = snapshot.val();
-        await set(reff, { ...updated, grand_total: totalCartPrice });
-      }
-
-      trackAddToCart(item.name, 1);
+      trackAddToCart(item.name, quantity);
     } catch (error) {
       toast.error("Failed to add item to cart");
       console.error("Error adding to cart:", error);
@@ -109,6 +91,7 @@ export const useCart = () => {
     quantity: number
   ) => {
     if (!database || !userId || quantity < 1) return;
+
     try {
       const cartRef = ref(database, `fhi/${userId}/cart`);
       const updatedCart = cart.map((item) => {
@@ -132,6 +115,7 @@ export const useCart = () => {
 
   const removeFromCart = async (itemName: string, brand: string) => {
     if (!database || !userId) return;
+
     try {
       const cartRef = ref(database, `fhi/${userId}/cart`);
       const updatedCart = cart.filter(
@@ -145,10 +129,23 @@ export const useCart = () => {
     }
   };
 
+  const clearCart = async () => {
+    if (!database || !userId) return;
+
+    try {
+      const cartRef = ref(database, `fhi/${userId}/cart`);
+      await set(cartRef, []);
+    } catch (error) {
+      console.error("Error clearing cart:", error);
+      throw error;
+    }
+  };
+
   return {
     cart,
     addToCart,
     updateQuantity,
     removeFromCart,
+    clearCart,
   };
 };
